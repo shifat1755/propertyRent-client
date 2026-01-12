@@ -12,9 +12,9 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
@@ -98,4 +98,32 @@ img {
 
 .gap-3 {
   gap: 1rem !important;
+}
+
+/* Search Bar Styles */
+.search-bar-container {
+  transition: box-shadow 0.3s ease;
+}
+
+.search-bar-container:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Search components font styling */
+.search-bar-container,
+.search-bar-container input,
+.search-bar-container button {
+  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", sans-serif;
+}
+
+/* Responsive borders for search components */
+@media (max-width: 767.98px) {
+  .border-md-end {
+    border-right: none !important;
+  }
+
+  .border-md-start {
+    border-left: none !important;
+  }
 }
