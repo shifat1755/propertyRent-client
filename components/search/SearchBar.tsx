@@ -4,7 +4,9 @@ import CountrySelector, { Country } from "./CountrySelector";
 import LocationInput from "./LocationInput";
 import PropertyTypeSelector, { PropertyType } from "./PropertyTypeSelector";
 import SearchButton from "./SearchButton";
-
+import { searchProperties } from "@/services/propertyService";
+import { skip } from "node:test";
+import { Property } from "@/types/property";
 export interface SearchParams {
   country: Country;
   location: string;
@@ -12,7 +14,7 @@ export interface SearchParams {
 }
 
 interface SearchBarProps {
-  onSearch?: (params: SearchParams) => void;
+  onSearch?: (params: Property[]) => void;
   initialValues?: Partial<SearchParams>;
   className?: string;
 }
@@ -35,8 +37,20 @@ export default function SearchBar({
     },
   });
 
-  const handleSearch = () => {
-    onSearch?.(searchParams);
+  const handleSearch = async () => {
+    const params = {
+      // country: searchParams.country["name"],
+      state: searchParams.location,
+      // propertyType: searchParams.propertyType["label"],
+    };
+    try {
+      console.log("Search_initiated_with_params:", params);
+      const response = await searchProperties(params);
+      console.log("Search results:", response.data);
+      onSearch?.(response.data);
+    } catch (error) {
+      console.error("Search request failed:", error);
+    }
   };
 
   const handleCountryChange = (country: Country) => {

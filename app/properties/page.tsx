@@ -1,9 +1,11 @@
 "use client";
 import PropertyCard from "@/components/PropertyCard";
 import SearchBar, { SearchParams } from "@/components/search/SearchBar";
+import { useState } from "react";
+import { Property } from "@/types/property";
 
 export default function Home() {
-  const backendProperties = [
+  const [properties, setProperties] = useState<Property[]>([
     {
       id: 1,
       title: "Modern 4-Room Apartment",
@@ -120,12 +122,12 @@ export default function Home() {
       updated_at: new Date().toISOString(),
       is_featured: false,
     },
-  ];
-  const handleSearch = (params: SearchParams) => {
-    console.log("Search params:", params);
-    // Navigate to properties page with search params or handle search
-    // Example: router.push(`/properties?location=${params.location}&type=${params.propertyType.value}`);
+  ]);
+
+  const handleSearchResults = (params: Property[]) => {
+    setProperties(params);
   };
+
   return (
     <main>
       <div className="container py-5">
@@ -134,13 +136,13 @@ export default function Home() {
             <h1 className="text-center mb-4 fw-bold text-secondary">
               Find Your Perfect Property
             </h1>
-            <SearchBar onSearch={handleSearch} />
+            <SearchBar onSearch={handleSearchResults} />
           </div>
         </div>
       </div>
       <div className="container py-4">
         <div className="row g-4">
-          {backendProperties.map((property) => (
+          {properties.map((property) => (
             <PropertyCard key={property.id} {...property} />
           ))}
         </div>
